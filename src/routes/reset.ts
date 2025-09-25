@@ -3,7 +3,7 @@ import { users } from "@/index";
 
 const app = new Hono();
 
-app.get("/", (c) => {
+app.post("/", (c) => {
   users.clear();
 
   return c.text("OK", 200);
