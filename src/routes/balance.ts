@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { users } from "..";
+import { users } from "@/index";
 
 const app = new Hono();
 
