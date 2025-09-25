@@ -4,7 +4,9 @@ import { users } from "@/index";
 const app = new Hono();
 
 app.get("/", (c) => {
-  return c.text("Not implemented");
+  users.clear();
+
+  return c.text("OK", 200);
 });
 
 export default app;
