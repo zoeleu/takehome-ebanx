@@ -1,7 +1,19 @@
 import { Context } from "hono";
 import { DepositEvent } from "./types";
 import { users } from "@/index";
+import { User } from "@/lib/user";
 
 export function depositHandler(c: Context, body: DepositEvent): Response {
-  return c.text("Not implemented");
+  const { destination, amount } = body;
+
+  let user = users.get(destination);
+
+  if (!user) {
+    user = new User(destination);
+    users.set(destination, user);
+  }
+
+  user.deposit(amount);
+
+  return c.json({ destination: { id: destination, balance: user.getBalance() } }, 201);
 }
