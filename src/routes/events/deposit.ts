@@ -15,5 +15,5 @@ export function depositHandler(c: Context, body: DepositEvent): Response {
 
   user.deposit(amount);
 
-  return c.json({ destination: { id: destination, balance: user.getBalance() } }, 201);
+  return c.json({ destination: user.serialize() }, 201);
 }
