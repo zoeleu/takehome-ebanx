@@ -1,24 +1,15 @@
-import { Hono } from 'hono'
-import { User } from './lib/user'
+import { Hono } from 'hono';
+import { User } from './lib/user';
+import event from './routes/event';
+import balance from './routes/balance';
+import reset from './routes/reset';
 
-const app = new Hono()
+const app = new Hono();
 
-const users = new Map<string, User>()
+export const users = new Map<string, User>();
 
-app.get('/balance', async (c) => {
-  const userId = c.req.query('account_id')
-
-  if (!userId) {
-    return c.json(0, 404);
-  }
-
-  const user = users.get(userId);
-
-  if (!user) {
-    return c.json(0, 404);
-  }
-
-  return c.json(user.getBalance());
-});
+app.route('/balance', balance);
+app.route('/reset', reset);
+app.route('/event', event);
 
 export default app
